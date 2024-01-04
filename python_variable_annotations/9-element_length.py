@@ -9,4 +9,5 @@ import typing
 
 def element_length(lst: typing.Iterable[typing.Sequence]) \
         -> typing.List[typing.Tuple[typing.Sequence, int]]:
+    """ return whatever, I don't care, it's not my code """
     return [(i, len(i)) for i in lst]
