@@ -12,8 +12,5 @@ def sum_mixed_list(mxd_lst: typing.List[typing.Union[int, float]]) -> float:
     """ returns sum of the numbers of a list as a float """
     n: float = 0
     for i in mxd_lst:
-        if type(i) is int:
-            n += float(i)
-        else:
-            n += i
+        n += i
     return n
