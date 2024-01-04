@@ -9,7 +9,7 @@ import typing
 
 
 def make_multiplier(multiplier: float) -> typing.Callable[[float], float]:
-    """ a function that returns a function that takes a float to be multiplied by the multiplier """
+    """ returns a func that takes a float to be multiplied by multiplier """
     def infunc(f: float) -> float:
         return f * multiplier
 
