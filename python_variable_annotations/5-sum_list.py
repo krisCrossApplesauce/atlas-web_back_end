@@ -7,10 +7,9 @@ and returns their sum as a float
 """
 
 
-def sum_list(input_list: float) -> float:
+def sum_list(input_list: list[float]) -> float:
     """ returns sum of floats in a list """
     n: float = 0
-    i = 1
-    while input_list[i]:
-        n += input_list[i]
+    for i in input_list:
+        n += i
     return n
