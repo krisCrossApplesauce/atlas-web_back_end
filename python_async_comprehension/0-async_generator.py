@@ -10,14 +10,10 @@ then yield a random number between 0 and 10
 """
 import asyncio
 import random
-import time
 
 
 async def async_generator():
     """ does stuff (explained in comment at beginning of file) """
     for i in range(10):
-        time.sleep(1)
+        await asyncio.sleep(1)
         yield random.uniform(0, 10)
-
-if __name__ == "__main__":
-    asyncio.run(async_generator())
