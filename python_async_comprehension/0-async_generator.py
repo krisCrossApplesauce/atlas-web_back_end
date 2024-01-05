@@ -10,9 +10,10 @@ then yield a random number between 0 and 10
 """
 import asyncio
 import random
+import typing
 
 
-async def async_generator():
+async def async_generator() -> typing.Generator[float, None, None]:
     """ does stuff (explained in comment at beginning of file) """
     for i in range(10):
         await asyncio.sleep(1)
