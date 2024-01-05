@@ -13,7 +13,7 @@ import random
 import time
 
 
-async def async_generator() -> float:
+async def async_generator():
     """ does stuff (explained in comment at beginning of file) """
     for i in range(10):
         time.sleep(1)
