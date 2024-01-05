@@ -13,13 +13,20 @@ import typing
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-async def wait_n(n: int, max_delay: int) -> typing.List[float]:
+async def wait_n(n: int, max_delay: int = 10) -> typing.List[float]:
     """ runs wait_random n times and returns a list of the results """
     lst = []
     i = 0
+    d = 0
 
     while i < n:
-        lst.append(await wait_random(max_delay))
+        d = await wait_random(max_delay)
+        for ii in range(len(lst) + 1):
+            if ii == len(lst):
+                lst.append(d)
+            elif ii < len(lst) and d < lst[ii]:
+                lst.insert(ii, d)
+                break
         i += 1
 
     return lst
