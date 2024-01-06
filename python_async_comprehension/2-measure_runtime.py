@@ -15,7 +15,7 @@ async_comprehension = __import__('1-async_comprehension').async_comprehension
 
 async def measure_runtime():
     """ already described in the comment at the beginning of the file """
-    loop = asyncio.get_running_loop()
+    loop = asyncio.get_event_loop()
     before = loop.time()
     await asyncio.gather(*[async_comprehension() for _ in range(4)])
     after = loop.time()
