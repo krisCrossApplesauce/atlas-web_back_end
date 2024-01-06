@@ -9,16 +9,16 @@ using asyncio.gather
 measure_runtime should measure the total runtime and return it
 """
 import asyncio
-import time
 import typing
 async_comprehension = __import__('1-async_comprehension').async_comprehension
 
 
 async def measure_runtime():
     """ already described in the comment at the beginning of the file """
-    before = time.time()
+    loop = asyncio.get_running_loop()
+    before = loop.time()
     await asyncio.gather(*[async_comprehension() for _ in range(4)])
-    after = time.time()
+    after = loop.time()
     total_time = after - before
 
     return total_time
