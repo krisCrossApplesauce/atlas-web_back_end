@@ -14,16 +14,14 @@ and another called page_size, with a default value of 10
 	>  If the input args are out of range for the dataset,
 	   an empty list should be returned
 """
+import csv
+import math
+from typing import List
 
 
 def index_range(page, page_size) -> tuple:
 	""" a func that returns a tuple """
 	return ((page - 1) * page_size, page * page_size)
-
-
-import csv
-import math
-from typing import List
 
 
 class Server:
@@ -46,4 +44,10 @@ class Server:
 		return self.__dataset
 
 	def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-		pass
+		assert type(page) == int and page > 0
+		assert type(page_size) == int and page_size > 0
+		data = self.dataset()
+		page_range = index_range(page, page_size)
+		if len(data) > page_range[1]:
+			return [data[i] for i in range(page_range[0], page_range[1])]
+		return []
