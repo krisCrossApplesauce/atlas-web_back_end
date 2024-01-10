@@ -49,10 +49,12 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """ returns a page """
         assert type(page) == int and page > 0
         assert type(page_size) == int and page_size > 0
         data = self.dataset()
         page_range = index_range(page, page_size)
-        if len(data) > page_range[1]:
-            return [data[i] for i in range(page_range[0], page_range[1])]
+        end_range = page_range[1] if len(data) > page_range[1] else len(data)
+        if len(data) >= page_range[0]:
+            return [data[i] for i in range(page_range[0], end_range)]
         return []
