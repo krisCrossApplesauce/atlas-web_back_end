@@ -21,17 +21,21 @@ import math
 from typing import List
 
 
+def index_range(page, page_size) -> tuple:
+    """ a func that returns a tuple """
+    return ((page - 1) * page_size, page * page_size)
+
+
 class Server:
     """ Server class to paginate a database of popular baby names
     """
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """ initializing whatever, I don't care,
+        it's stupid that this wasn't already documented >,'/
+        """
         self.__dataset = None
-
-    def index_range(self, page, page_size) -> tuple:
-        """ a func that returns a tuple """
-        return ((page - 1) * page_size, page * page_size)
 
     def dataset(self) -> List[List]:
         """Cached dataset
@@ -48,7 +52,7 @@ class Server:
         assert type(page) == int and page > 0
         assert type(page_size) == int and page_size > 0
         data = self.dataset()
-        page_range = self.index_range(page, page_size)
+        page_range = index_range(page, page_size)
         if len(data) > page_range[1]:
             return [data[i] for i in range(page_range[0], page_range[1])]
         return []
