@@ -63,16 +63,19 @@ class Server:
         """ does stuff """
         hyper = {}
         data = self.__indexed_dataset
-        not_last = index > len(data) - page_size
+        not_last = index <= len(data) - page_size
 
         assert index < len(data)
 
-        for i in range(index, index + page_size - 1):
-            if i in data:
-                data[i]
-
         hyper['index'] = index
-        hyper['data'] = [data[i] for i in range(index, index + page_size - 1)]
+        hyper['data'] = []
+        i = index
+        while i <= index + page_size \
+                and len(hyper['data']) < page_size and i < len(data):
+            # for i in range(index, index + page_size):
+            if i in data:
+                hyper['data'].append(data[i])
+            i += 1
         hyper['page_size'] = page_size if not_last else len(data) % page_size
         hyper['next_index'] = index + page_size
 
