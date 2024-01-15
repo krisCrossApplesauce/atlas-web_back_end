@@ -21,8 +21,9 @@ def filter_datum(fields, redaction, message, separator):
     reverse_fields = []
     for i in split_mess:
         for iii in fields:
-            if re.findall(fr'{iii}=', i) is not []:
-                reverse_fields.append(re.sub(fr'{iii}=', "", i))
+            x = re.sub(fr'{iii}=', "", i)
+            if x != i:
+                reverse_fields.append(x)
     string = message
     for ii in reverse_fields:
         string = re.sub(fr'{ii}', redaction, message)
