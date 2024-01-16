@@ -26,5 +26,5 @@ def filter_datum(fields, redaction, message, separator):
                 reverse_fields.append(x)
     string = message
     for ii in reverse_fields:
-        string = re.sub(fr'{ii}', redaction, message)
+        string = re.sub(fr'{ii}', redaction, string)
     return string
