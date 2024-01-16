@@ -13,9 +13,11 @@ write a func called filter_datum that returns the log message obfuscated:
       and use re.sub to perform the substitution with a single regex
 """
 import re
+import typing
 
 
-def filter_datum(fields, redaction, message, separator):
+def filter_datum(fields: typing.List[str],
+                 redaction: str, message: str, separator: str) -> str:
     """ a function that does something """
     split_mess = re.split(separator, message)
     reverse_fields = []
