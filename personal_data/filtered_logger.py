@@ -19,14 +19,7 @@ import typing
 def filter_datum(fields: typing.List[str],
                  redaction: str, message: str, separator: str) -> str:
     """ a function that does something """
-    split_mess = re.split(separator, message)
-    reverse_fields = []
-    for i in split_mess:
-        for iii in fields:
-            x = re.sub(fr'{iii}=', "", i)
-            if x != i:
-                reverse_fields.append(x)
-    string = message
-    for ii in reverse_fields:
-        string = re.sub(fr'{ii}', redaction, string)
-    return string
+    for f in fields:
+        message = re.sub(fr'{f}=.*{separator}',
+                         fr'{f}={redaction}{separator}', message)
+    return message
