@@ -8,6 +8,9 @@ import re
 import typing
 
 
+PII_FIELDS: tuple = ("name", "email", "phone", "ssn", "password")
+
+
 def filter_datum(fields: typing.List[str],
                  redaction: str, message: str, separator: str) -> str:
     """ returns the log message obfuscated """
@@ -35,3 +38,14 @@ class RedactingFormatter(logging.Formatter):
         record.msg = filter_datum(self.fields, self.REDACTION,
                                   record.msg, self.SEPARATOR)
         return super(RedactingFormatter, self).format(record)
+
+
+def get_logger() -> logging.Logger:
+    """ does stuff """
+    user_data = logging.getLogger(user_data)
+    user_data.setLevel(logging.INFO)
+    user_data.propagate = False
+    h = logging.StreamHandler()
+    h.setFormatter(RedactingFormatter())
+    user_data.addHandler(h)
+    return user_data
