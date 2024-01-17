@@ -8,7 +8,7 @@ and returns a salted, hashed password, which is a byte str
 import bcrypt
 
 
-def hash_password(password: str) -> str:
+def hash_password(password: str) -> bytes:
     """ hashes a password I guess """
     bytes = password.encode('utf-8')
     salt = bcrypt.gensalt()
