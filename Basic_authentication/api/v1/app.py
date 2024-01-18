@@ -18,6 +18,7 @@ if os.getenv("AUTH_TYPE") == "auth":
     from api.v1.auth.auth import Auth
     auth = Auth()
 
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
@@ -52,7 +53,6 @@ def before_request():
             if auth.current_user(request) is None:
                 raise abort(403)
     return
-
 
 
 if __name__ == "__main__":
