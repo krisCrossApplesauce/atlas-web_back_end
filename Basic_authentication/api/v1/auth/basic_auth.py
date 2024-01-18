@@ -61,3 +61,23 @@ class BasicAuth(Auth):
             if user.is_valid_password(user_pwd):
                 return user
         return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """ overloads Auth and retrieves the User instance for a request """
+        auth_head = self.authorization_header(request)
+        if auth_head is None or not auth_head:
+            return None
+        ex_b64_auth_head = self.extract_base64_authorization_header(auth_head)
+        if ex_b64_auth_head is None or not ex_b64_auth_head:
+            return None
+        dcode_b64_auth_head = self.decode_base64_authorization_header(
+            ex_b64_auth_head)
+        if dcode_b64_auth_head is None or not dcode_b64_auth_head:
+            return None
+        ex_usr_creds = self.extract_user_credentials(dcode_b64_auth_head)
+        if ex_usr_creds is None or not ex_usr_creds:
+            return None
+        usr_obj_from_creds = self.user_object_from_credentials(ex_usr_creds)
+        if usr_obj_from_creds is None or not usr_obj_from_creds:
+            return None
+        return usr_obj_from_creds
