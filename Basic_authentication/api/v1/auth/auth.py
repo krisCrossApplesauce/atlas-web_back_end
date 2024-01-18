@@ -14,9 +14,9 @@ class Auth():
         """ require auth method """
         if path is None or excluded_paths is None or len(excluded_paths) is 0:
             return True
+        if path[-1] != '/':
+            path += '/'
         for ex_path in excluded_paths:
-            if path[-1] != '/':
-                path += '/'
             if path == ex_path:
                 return True
         return False
