@@ -25,15 +25,15 @@ start:
 # SSH into the running dev-box
 ssh:
 	ssh -p 2022 root@localhost
-	
+
 # Publishes the image to docker hub
 publish: build
 	docker push ${IMAGE}:${TAG}
-  
+
 # Install dependencies for the project
 install: requirements.txt
 	pip3 install -r $<
-	
+
 # Stop all running docker containers
 stop:
 	docker stop ${IMAGE}
@@ -41,7 +41,7 @@ stop:
 # Remove all pycache files
 clean:
 	find . -name \*.pyc -delete
-  
+
 # Remove container and image
 #remove:
   #docker rm ${IMAGE}

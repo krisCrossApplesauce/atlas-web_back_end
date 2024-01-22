@@ -8,7 +8,7 @@ WORKDIR /app
 COPY requirements.txt /app
 
 # Install any needed packages specified in requirements.txt
-RUN sudo pip3 install --upgrade pip && pip3 install --no-cache -r requirements.txt
+RUN pip3 install --upgrade pip && pip3 install --no-cache -r requirements.txt
 
 # Copy the current directory contents into the container at /app
 COPY . /app
