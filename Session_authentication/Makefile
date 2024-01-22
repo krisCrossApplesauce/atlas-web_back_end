@@ -6,7 +6,7 @@
 
 NAME="Karis Richardson"
 IMAGE=kriscrossapplesauce/session_auth
-CONTAINER=atlas-web_back_end-Session_authentication
+CONTAINER=atlas-web_back_end-session_authentication
 TAG=latest
 
 # Builds a docker image for a development box with a image name, can change dev to project name
