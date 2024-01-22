@@ -5,8 +5,8 @@
 # All commands start with make
 
 NAME="Karis Richardson"
-IMAGE="karisrichardson/session_auth"
-CONTAINER=atlas_container_session
+IMAGE=kriscrossapplesauce/session_auth
+CONTAINER=atlas-web_back_end-Session_authentication
 TAG=latest
 
 # Builds a docker image for a development box with a image name, can change dev to project name
