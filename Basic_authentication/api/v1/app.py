@@ -47,15 +47,15 @@ def unauthorized(error) -> str:
 def before_request():
     """ before request """
     if auth is not None:
-        this_list = ['/api/v1/status/',
-                     '/api/v1/unauthorized/',
-                     '/api/v1/forbidden/']
-        if auth.require_auth(request.path, this_list):
-            if auth.authorization_header(request) is None:
-                raise abort(401)
-            if auth.current_user(request) is None:
-                raise abort(403)
-    return
+        return
+    if auth.require_auth(request.path, ['/api/v1/status/',
+                                        '/api/v1/unauthorized/',
+                                        '/api/v1/forbidden/']):
+        return
+    if auth.authorization_header(request) is None:
+        raise abort(401)
+    if auth.current_user(request) is None:
+        raise abort(403)
 
 
 if __name__ == "__main__":
