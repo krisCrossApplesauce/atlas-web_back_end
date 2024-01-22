@@ -12,15 +12,12 @@ import base64
 class BasicAuth(Auth):
     """ basic auth """
 
-    def __init__(self):
-        """ initialize stuff """
-
     def extract_base64_authorization_header(self,
                                             authorization_header: str) -> str:
         """ ridiculously long method name but ok I guess """
         if authorization_header is None \
             or not isinstance(authorization_header, str) \
-                or authorization_header[:6] != "Basic ":
+                or not authorization_header.startswith("Basic "):
             return None
         return authorization_header[6:]
 
@@ -71,6 +68,6 @@ class BasicAuth(Auth):
         ex_b64_auth_head = self.extract_base64_authorization_header(auth_head)
         dcode_b64_auth_head = self.decode_base64_authorization_header(
             ex_b64_auth_head)
-        ex_usr_creds = self.extract_user_credentials(dcode_b64_auth_head)
-        usr_obj_from_creds = self.user_object_from_credentials(ex_usr_creds)
-        return usr_obj_from_creds
+        usr_email, usr_pwd = self.extract_user_credentials(dcode_b64_auth_head)
+        user = self.user_object_from_credentials(usr_email, usr_pwd)
+        return user
