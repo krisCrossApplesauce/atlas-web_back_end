@@ -16,14 +16,16 @@ def login():
     password = request.form.get("password")
     if password is None or password is "":
         return { "error": "password missing" }, 400
+
     user = User.search(email)
     if user is None:
         return { "error": "no user found for this email" }, 404
     if not user.is_valid_password(password):
         return { "error": "wrong password" }, 401
+
     from api.v1.app import auth
+
     session_id = auth.create_session(user.id)
-    response = user.to_json()
-    response = make_response(response)
+    response = make_response(jsonify(user.to_json()))
     response.set_cookie(os.getenv('SESSION_NAME'), session_id)
     return response
