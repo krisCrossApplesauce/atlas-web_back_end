@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ handles all routes for the Session authentication """
 from api.v1.views import app_views
-from flask import make_response
+from flask import jsonify, make_response
 from models.user import User
 import json
 
@@ -11,17 +11,17 @@ import json
 def login():
     """ it's not really telling me what this is supposed to do """
     email = request.form.get("email")
-    if email is None or email is "":
-        return { "error": "email missing" }, 400
+    if email is None:
+        return jsonify({ "error": "email missing" }), 400
     password = request.form.get("password")
-    if password is None or password is "":
-        return { "error": "password missing" }, 400
+    if password is None:
+        return jsonify({ "error": "password missing" }), 400
 
-    user = User.search(email)
+    user = User.search({"email": email})
     if user is None:
-        return { "error": "no user found for this email" }, 404
+        return jsonify({ "error": "no user found for this email" }), 404
     if not user.is_valid_password(password):
-        return { "error": "wrong password" }, 401
+        return jsonify({ "error": "wrong password" }), 401
 
     from api.v1.app import auth
 
