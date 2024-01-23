@@ -2,6 +2,7 @@
 """
 Create a class called SessionAuth that inherits from Auth
 """
+from models.user import User
 from api.v1.auth.auth import Auth
 import uuid
 
