@@ -3,7 +3,6 @@
 from api.v1.views import app_views
 from flask import request, jsonify, make_response, abort
 from models.user import User
-from api.v1.app import auth
 import os
 
 
@@ -37,6 +36,8 @@ def login():
                  strict_slashes=False)
 def logout():
     """ it logs out, deleting the session id """
+    from api.v1.app import auth
+
     destroyed = auth.destroy_session(request)
     if not destroyed:
         abort(404)
