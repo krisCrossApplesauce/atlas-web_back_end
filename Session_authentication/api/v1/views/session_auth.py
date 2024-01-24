@@ -37,6 +37,7 @@ def login():
                  strict_slashes=False)
 def logout():
     """ it logs out, deleting the session id """
-    if not auth.destroy_session(request):
+    destroyed = auth.destroy_session(request)
+    if not destroyed:
         abort(404)
     return jsonify({}), 200
