@@ -4,6 +4,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 
 from user import Base, User
 
@@ -36,4 +38,11 @@ class DB:
         user.hashed_password = hashed_password
         self.__session.append(user)
         user.id = len(self.__session)
+        return user
+
+    def find_user_by(self, **kwargs):
+        """ returns the first row found in the users table """
+        user = self.__session.query(User).filter_by(**kwargs).first()
+        if user is None or not user:
+            raise NoResultFound
         return user
