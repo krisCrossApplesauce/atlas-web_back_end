@@ -18,10 +18,17 @@ class Config():
 app.config.from_object(Config)
 
 
+@babel.localeselector
+def get_locale():
+    """ ok now I make a get_locale func """
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
 @app.route('/')
 def hello_world():
     """ returns the index.html template """
-    return render_template('1-index.html')
+    from flask_babel import gettext as _
+    return render_template('3-index.html')
 
 
 if __name__ == '__main__':
