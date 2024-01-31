@@ -4,21 +4,18 @@ from flask import Flask, render_template, request
 from flask_babel import Babel
 
 
-class Config():
-    """ to configure available languages in the app """
-    LANGUAGES = ["en", "fr"]
-
-    def get_locale(cls):
-        """ returns language """
-        return request.accept_languages.best_match(cls.LANGUAGES)
-
-    def get_timezone(cls):
-        """ returns timezone """
-        return "UTC"
-
-
 app = Flask(__name__)
-babel = Babel(app, locale_selector=Config.get_locale, timezone_selector=Config.get_timezone)
+babel = Babel(app)
+
+
+class Config():
+    """ to configure language and timezone in the app """
+    LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
+
+
+app.config.from_object(Config)
 
 
 @app.route('/')
