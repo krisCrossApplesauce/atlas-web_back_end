@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 """ setup a basic Flask app """
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 from flask_babel import Babel
 
+
+users = {
+    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
+    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
+    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
+    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
+}
 
 app = Flask(__name__)
 babel = Babel(app)
@@ -31,7 +38,20 @@ def get_locale():
 def hello_world():
     """ returns the index.html template """
     from flask_babel import gettext as _
-    return render_template('4-index.html')
+    return render_template('5-index.html')
+
+
+def get_user(id):
+    """ returns a user dict or None if ID not found or login_as not passed """
+    if id in users:
+        return users[id]
+    return None
+
+
+@app.before_request
+def before_request():
+    """ gets user and sets it as a global(?) on flask.g.user """
+    g.user = get_user(id)
 
 
 if __name__ == '__main__':
