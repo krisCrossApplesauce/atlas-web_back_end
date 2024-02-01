@@ -41,9 +41,10 @@ def hello_world():
     return render_template('5-index.html')
 
 
-def get_user(id):
+def get_user():
     """ returns a user dict or None if ID not found or login_as not passed """
-    if id in users:
+    id = int(request.args['login_as'])
+    if id is not None and id in users:
         return users[id]
     return None
 
@@ -51,7 +52,7 @@ def get_user(id):
 @app.before_request
 def before_request():
     """ gets user and sets it as a global(?) on flask.g.user """
-    g.user = get_user(id)
+    g.user = get_user()
 
 
 if __name__ == '__main__':
