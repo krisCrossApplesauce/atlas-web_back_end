@@ -8,8 +8,11 @@ class TestAccessNestedMap(unittest.TestCase):
     """ unittest for access_nested_map from utils.py """
 
     @parameterized.expand([
-        (),
+        ({"a": 1}, ("a",), 1),
+        ({"a": {"b": 2}}, ("a",), {"b": 2}),
+        ({"a": {"b": 2}}, ("a", "b"), ({"b": 2}, 2))
     ])
-    def test_access_nested_map(self):
+    def test_access_nested_map(self, nested_map, path, expected_result):
         """ tests access_nested_map """
-        pass
+        result = access_nested_map(nested_map, path)
+        self.assertEqual(result, expected_result)
