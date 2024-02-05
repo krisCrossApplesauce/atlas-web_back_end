@@ -2,6 +2,7 @@
 """ unittest for utils.py """
 access_nested_map = __import__('utils').access_nested_map
 import unittest
+from parameterized import parameterized
 
 
 class TestAccessNestedMap(unittest.TestCase):
