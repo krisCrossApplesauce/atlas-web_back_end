@@ -40,7 +40,8 @@ class TestGithubOrgClient(unittest.TestCase):
         """ tests public_repos method from GithubOrgClient """
         with patch('client.GithubOrgClient._public_repos_url',
                    new_callable=PropertyMock,
-                   return_value="https://api.github.com/orgs/peepoo") as mock_url:
+                   return_value="https://api.github.com/orgs/peepoo") \
+                as mock_url:
             test_instance = GithubOrgClient("peepoo")
             result = test_instance.public_repos()
             self.assertEqual(result, ["pee", "poo"])
