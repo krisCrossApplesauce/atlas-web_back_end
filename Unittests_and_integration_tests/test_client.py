@@ -35,13 +35,24 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(result, mock_prop.return_value["repos_url"])
 
     @patch('client.get_json',
-           return_value={"repos_url": "https://api.github.com/orgs/peepoo"})
+           return_value=[{"name": "pee"}, {"name": "poo"}])
     def test_public_repos(self, mock_get_json):
         """ tests public_repos method from GithubOrgClient """
         with patch('client.GithubOrgClient._public_repos_url',
+                   new_callable=PropertyMock,
                    return_value="https://api.github.com/orgs/peepoo") as mock_url:
             test_instance = GithubOrgClient("peepoo")
-            result = test_instance.public_repos(mock_url)
-            self.assertEqual(result, mock_get_json["repos_url"])
+            result = test_instance.public_repos()
+            self.assertEqual(result, ["pee", "poo"])
             mock_get_json.assert_called_once()
             mock_url.assert_called_once()
+
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False)
+    ])
+    def test_has_license(self, repo, license_key, expected_result):
+        """ tests has_license method from GithubOrgClient """
+        test_instance = GithubOrgClient("peepoo")
+        result = test_instance.has_license(repo, license_key)
+        self.assertEqual(result, expected_result)
