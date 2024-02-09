@@ -9,9 +9,9 @@ from typing import Callable, Union
 def count_calls(method: Callable) -> Callable:
     """ a decorator??? to count the number of times methods are called """
     @wraps(method)
-    def func(self, data):
+    def func(self, *args):
         self._redis.incr(method.__qualname__)
-        return method(self, data)
+        return method(self, *args)
 
     return func
 
@@ -19,11 +19,11 @@ def count_calls(method: Callable) -> Callable:
 def call_history(method: Callable) -> Callable:
     """ a decorator! to store the history of inputs and outputs for a func """
     @wraps(method)
-    def func(self, data):
+    def func(self, *args):
         input = f"{method.__qualname__}:inputs"
-        self._redis.rpush(input, str(data))
+        self._redis.rpush(input, str(args))
         output = f"{method.__qualname__}:outputs"
-        result = method(self, data)
+        result = method(self, *args)
         self._redis.rpush(output, result)
         return result
 
