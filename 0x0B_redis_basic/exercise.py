@@ -38,6 +38,8 @@ def replay(method: Callable):
     history = zip(inputs, outputs)
     print(f"{method.__qualname__} was called {len(inputs)} times:")
     for input, output in history:
+        input = input.decode('utf-8')
+        output = output.decode('utf-8')
         print(f"{method.__qualname__}(*{input}) -> {output}")
 
 
