@@ -19,10 +19,10 @@ class Cache():
         self._redis[key] = data
         return key
 
-    def get(self, key: str, fn: Callable):
+    def get(self, key: str, fn: Callable = None):
         """ converts data back to desired form """
         b_data = self._redis.get(key)
-        if callable(fn):
+        if fn and callable(fn):
             return fn(b_data)
         return b_data
 
