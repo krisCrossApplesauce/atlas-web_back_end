@@ -1,8 +1,19 @@
 #!/usr/bin/env python3
 """ Cache class """
+from functools import wraps
 import redis
 import uuid
 from typing import Callable, Union
+
+
+def count_calls(method: Callable) -> Callable:
+    """ a decorator??? to count the number of times methods are called """
+    @wraps(method)
+    def func(self, data):
+        self._redis.incr(method.__qualname__)
+        return method(self, data)
+
+    return func
 
 
 class Cache():
@@ -13,6 +24,7 @@ class Cache():
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """ takes a data arg and returns a str """
         key = str(uuid.uuid4())
