@@ -30,6 +30,17 @@ def call_history(method: Callable) -> Callable:
     return func
 
 
+def replay(method: Callable):
+    """ displays the history of calls of a particular func """
+    self = method.__self__
+    inputs = self._redis.lrange(f"{method.__qualname__}:inputs", 0, -1)
+    outputs = self._redis.lrange(f"{method.__qualname__}:outputs", 0, -1)
+    history = zip(inputs, outputs)
+    print(f"{method.__qualname__} was called {len(inputs)} times:")
+    for input, output in history:
+        print(f"{method.__qualname__}(*{input}) -> {output}")
+
+
 class Cache():
     """ Cache class """
 
