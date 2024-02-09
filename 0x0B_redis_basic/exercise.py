@@ -16,6 +16,19 @@ def count_calls(method: Callable) -> Callable:
     return func
 
 
+def call_history(method: Callable) -> Callable:
+    """ a decorator! to store the history of inputs and outputs for a func """
+    @wraps(method)
+    def func(self, data):
+        input = f"{method.__qualname__}:inputs"
+        self._redis.rpush(input, data)
+        output = f"{method.__qualname__}:outputs"
+        self._redis.rpush(output, method(self, data))
+        return method(self, data)
+
+    return func
+
+
 class Cache():
     """ Cache class """
 
@@ -25,6 +38,7 @@ class Cache():
         self._redis.flushdb()
 
     @count_calls
+    @call_history
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """ takes a data arg and returns a str """
         key = str(uuid.uuid4())
