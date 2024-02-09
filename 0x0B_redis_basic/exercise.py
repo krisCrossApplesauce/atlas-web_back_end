@@ -21,10 +21,11 @@ def call_history(method: Callable) -> Callable:
     @wraps(method)
     def func(self, data):
         input = f"{method.__qualname__}:inputs"
-        self._redis.rpush(input, data)
+        self._redis.rpush(input, str(data))
         output = f"{method.__qualname__}:outputs"
-        self._redis.rpush(output, method(self, data))
-        return method(self, data)
+        result = method(self, data)
+        self._redis.rpush(output, result)
+        return result
 
     return func
 
