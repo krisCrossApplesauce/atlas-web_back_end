@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS users (
     name varchar(255),
     country ENUM ('US', 'CO', 'TN') NOT NULL DEFAULT 'US',
     PRIMARY KEY (id)
-)
+);
