@@ -7,10 +7,11 @@ CREATE FUNCTION SafeDiv(
     b INT
 ) RETURNS FLOAT
 BEGIN
-    IF b = 0 THEN
-        RETURN 0;
+    DECLARE @c AS INT = 0
+    IF b != 0 THEN
+        SET @c = (a / b);
     END IF;
-    RETURN (a / b)
+    RETURN @c;
 END;
 //
 
