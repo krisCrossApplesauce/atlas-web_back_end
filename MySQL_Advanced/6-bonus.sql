@@ -5,7 +5,9 @@ CREATE PROCEDURE AddBonus
 (IN user_id INT, IN project_name VARCHAR(255), IN score FLOAT)
 BEGIN
     IF NOT EXISTS (SELECT name FROM projects WHERE projects.name = project_name)
+    BEGIN
         INSERT INTO projects (name) VALUES (project_name);
+    END
     INSERT INTO corrections
     VALUES (user_id, SELECT id FROM projects WHERE name = project_name, score);
 END//
