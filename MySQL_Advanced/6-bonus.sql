@@ -9,6 +9,6 @@ BEGIN
         INSERT INTO projects (name) VALUES (project_name);
     END
     INSERT INTO corrections
-    VALUES (user_id, SELECT id FROM projects WHERE name = project_name, score);
+    VALUES (user_id, (SELECT id FROM projects WHERE name = project_name), score);
 END//
 delimiter;
