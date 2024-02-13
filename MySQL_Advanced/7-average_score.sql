@@ -1,0 +1,15 @@
+-- write an SQL script that creates a stored procedure
+-- called ComputeAverageScoreForUser
+-- that computes and stores the average score for a student
+DELIMITER //
+CREATE PROCEDURE ComputeAverageScoreForUser(
+    IN user_id INT
+)
+BEGIN
+    UPDATE users
+    SET average_score = SUM(SELECT score FROM corrections WHERE user_id = user_id) / COUNT(SELECT score FROM corrections WHERE user_id = user_id)
+    WHERE id = user_id;
+END;
+//
+
+DELIMITER ;
