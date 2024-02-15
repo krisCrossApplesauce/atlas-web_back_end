@@ -16,25 +16,18 @@ provides some stats about Nginx logs stored in MongoDB:
 import pymongo
 
 
-def log_stats_func(my_collection):
-    """ come on, just work for me
-    I wanna play Deep Rock Galactic with my friends :(
-    """
-    print(f"{my_collection.count()} logs")
-    print("Methods:")
-    for method in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
-        print(f"method {method}: {my_collection.count({"method": [method]})}")
-    print(f"{my_collection.count({
-        "method": "GET",
-        "path": "/status"
-        })} status check")
-
-
 if __name__ == "__main__":
-    """ kinda a weird traceback error for the
-    everything is documented checker but ok
+    """ ok, not so weird of a traceback error, I understand it now,
+    couldn't import my file bc of errors
     """
     client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
     my_collection = client.logs.nginx
 
-    log_stats_func(my_collection)
+    print(f"{my_collection.count()} logs")
+    print("Methods:")
+    for method in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
+        print(f"method {method}: {my_collection.count_documents({"method": [method]})}")
+    print(f"{my_collection.count_documents({
+        "method": "GET",
+        "path": "/status"
+        })} status check")
