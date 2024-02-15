@@ -17,6 +17,9 @@ import pymongo
 
 
 if __name__ == "__main__":
+    """ kinda a weird traceback error for the
+    everything is documented checker but ok
+    """
     client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
     my_collection = client.logs.nginx
 
