@@ -10,6 +10,6 @@ import pymongo
 def update_topics(mongo_collection, name, topics):
     """ changes topics of a school """
     mongo_collection.update_one(
-        {name: name},
-        {"$set": {topics: topics}}
+        {'name': name},
+        {"$set": {'topics': str(topics)}}
     )
