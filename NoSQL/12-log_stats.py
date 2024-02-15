@@ -26,5 +26,5 @@ if __name__ == "__main__":
     print(f"{my_collection.count()} logs")
     print("Methods:")
     for method in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
-        print(f"method {method}: {my_collection.count_documents({"methods": [method]})}")
+        print(f"method {method}: {my_collection.count_documents({"method": method})}")
     print(f"{my_collection.count_documents({"method": "GET", "path": "/status"})} status check")
