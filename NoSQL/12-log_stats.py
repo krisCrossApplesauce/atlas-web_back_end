@@ -27,6 +27,6 @@ if __name__ == "__main__":
     print("Methods:")
     for method in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
         method_count = my_collection.count_documents({"method": method})
-        print(f"method {method}: {method_count}")
+        print(f"\tmethod {method}: {method_count}")
     method_path_count = my_collection.count_documents({"method": "GET", "path": "/status"})
     print(f"{method_path_count} status check")
