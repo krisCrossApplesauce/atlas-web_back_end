@@ -16,13 +16,10 @@ provides some stats about Nginx logs stored in MongoDB:
 import pymongo
 
 
-if __name__ == "__main__":
-    """ kinda a weird traceback error for the
-    everything is documented checker but ok
+def log_stats_func(my_collection):
+    """ come on, just work for me
+    I wanna play Deep Rock Galactic with my friends :(
     """
-    client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
-    my_collection = client.logs.nginx
-
     print(f"{my_collection.count()} logs")
     print("Methods:")
     for method in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
@@ -31,3 +28,13 @@ if __name__ == "__main__":
         "method": "GET",
         "path": "/status"
         })} status check")
+
+
+if __name__ == "__main__":
+    """ kinda a weird traceback error for the
+    everything is documented checker but ok
+    """
+    client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
+    my_collection = client.logs.nginx
+
+    log_stats_func(my_collection)
