@@ -10,42 +10,30 @@ function countStudents(path) {
 
   const studs = data.split('\n');
   const students = [];
-  for (s in studs) {
-    students.append(s.split(','));
+  for (idx = 0; idx < studs.length - 1; idx++) {
+    students.push(studs[idx].split(','));
   }
 
-  console.log(`Number of students: ${studs.length - 1}`);
-
-  let nameIndex = 0;
-  let fieldIndex = 0;
-  for (i = 0; i < students[0].length; i++) {
-    if (students[0][i] == 'name')
-      nameIndex = i;
-    if (students[0][i] == 'field')
-      fieldIndex = i;
-  }
-
-  const fields = [];
-  for (ii = 0; ii < studs.length - 1; ii++) {
-    if (!(studs[ii][nameIndex] in fields.names)) {
-      fields.names.append(studs[ii][nameIndex]);
+  const studObjs = [];
+  for (i = 1; i < students.length; i++) {
+    const temp = {};
+    for (ii = 0; ii < students[0].length; ii++) {
+      temp[students[0][ii]] = students[i][ii];
     }
+    studObjs.push(temp);
   }
 
-  // USE array.map INSTEAD OF THIS NONSENSE!!
+  console.log(`Number of students: ${studObjs.length}`);
 
-  for (field in data.field) {
-    list = '';
-    count = 0;
-    for (stud in data) {
-      if (stud.field == field) {
-        if (list != '')
-          list += ', ';
-        list += str(stud.firstName);
-        count++;
-      }
+  const distinctFields = [...new Set(studObjs.map(x => x.field))];
+
+  for (y = 0; y < distinctFields.length; y++) {
+    const studsInField = []
+    for (x = 0; x < studObjs.length; x++) {
+      if (studObjs[x].field == distinctFields[y])
+        studsInField.push(' ' + studObjs[x].firstname);
     }
-    console.log(`Number of students in ${field}: ${count}. List: ${list}`);
+    console.log(`Number of students in ${distinctFields[y]}: ${studsInField.length}. List:${studsInField}`);
   }
 };
 
