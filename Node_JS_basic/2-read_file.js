@@ -30,8 +30,9 @@ function countStudents(path) {
     if (!(studs[ii][nameIndex] in fields.names)) {
       fields.names.append(studs[ii][nameIndex]);
     }
-
   }
+
+  // USE array.map INSTEAD OF THIS NONSENSE!!
 
   for (field in data.field) {
     list = '';
