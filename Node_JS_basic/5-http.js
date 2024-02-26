@@ -6,7 +6,7 @@ const app = http.createServer(async (req, res) => {
     res.write('Hello Holberton School!');
   }
   if (req.url === '/students') {
-    res.write('This is the list of our students');
+    res.write('This is the list of our students\n');
     const path = process.argv[2];
     let idx;
     let i;
@@ -30,7 +30,7 @@ const app = http.createServer(async (req, res) => {
         studObjs.push(temp);
       }
 
-      res.write(`Number of students: ${studObjs.length}`);
+      res.write(`Number of students: ${studObjs.length}\n`);
 
       const distinctFields = [...new Set(studObjs.map((x) => x.field))];
 
@@ -39,10 +39,10 @@ const app = http.createServer(async (req, res) => {
         for (x = 0; x < studObjs.length; x += 1) {
           if (studObjs[x].field === distinctFields[y]) studsInField.push(` ${studObjs[x].firstname}`);
         }
-        res.write(`Number of students in ${distinctFields[y]}: ${studsInField.length}. List:${studsInField}`);
+        res.write(`Number of students in ${distinctFields[y]}: ${studsInField.length}. List:${studsInField}\n`);
       }
     } catch (err) {
-      throw new Error('Cannot load the database');
+      res.write('Cannot load the database');
     }
   }
   res.end();
