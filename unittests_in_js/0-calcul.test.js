@@ -1,7 +1,7 @@
 const calculateNumber = require('./0-calcul');
 const assert = require('assert');
 
-describe("Test calculateNumber function", () => {
+describe("Test calculateNumber function from 0-calcul.js", () => {
   it("adds two numbers", () => {
     assert.equal(calculateNumber(1, 3), 4);
   });
