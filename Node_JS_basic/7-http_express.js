@@ -10,6 +10,7 @@ app.get('/', (req, res) => {
 app.get('/students', async (req, res) => {
   res.send('This is the list of our students\n');
   const path = process.argv[2];
+  const output = '';
   let idx;
   let i;
   let ii;
@@ -33,7 +34,7 @@ app.get('/students', async (req, res) => {
       studObjs.push(temp);
     }
 
-    res.send(`Number of students: ${studObjs.length}`);
+    output += `Number of students: ${studObjs.length}`;
 
     const distinctFields = [...new Set(studObjs.map((x) => x.field))];
 
@@ -42,11 +43,13 @@ app.get('/students', async (req, res) => {
       for (x = 0; x < studObjs.length; x += 1) {
         if (studObjs[x].field === distinctFields[y]) studsInField.push(` ${studObjs[x].firstname}`);
       }
-      res.send(`Number of students in ${distinctFields[y]}: ${studsInField.length}. List:${studsInField}`);
+      output += `Number of students in ${distinctFields[y]}: ${studsInField.length}. List:${studsInField}`;
     }
   } catch (err) {
-    res.send('Cannot load the database');
+    output = 'Cannot load the database';
   }
+
+  res.send(`This is the list of our students\n${output}`);
 });
 
 app.listen(1245);
