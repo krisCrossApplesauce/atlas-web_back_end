@@ -7,9 +7,9 @@ app.get('/', (req, res) => {
   res.send('Hello Holberton School!');
 });
 
-app.get('/', async (req, res) => {
+app.get('/students', async (req, res) => {
   res.send('This is the list of our students\n');
-
+  const path = process.argv[2];
   let idx;
   let i;
   let ii;
@@ -47,7 +47,6 @@ app.get('/', async (req, res) => {
   } catch (err) {
     res.send('Cannot load the database');
   }
-
 });
 
 app.listen(1245);
