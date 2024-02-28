@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 app.get('/students', async (req, res) => {
   res.send('This is the list of our students\n');
   const path = process.argv[2];
-  const output = '';
+  let output = '';
   let idx;
   let i;
   let ii;
