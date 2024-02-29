@@ -1,4 +1,4 @@
-const server = require('./api');
+// const server = require('./api');
 const request = require('request');
 const chai = require('chai');
 const expect = chai.expect;
@@ -20,6 +20,8 @@ describe('Test server from 8-api/api.js', () => {
 });
 
 // to stop the server after the tests should have finished running
+/*
 setTimeout(() => {
   server.close();
-}, 100);
+}, 2000);
+*/
