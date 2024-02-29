@@ -20,6 +20,6 @@ describe('Test server from 8-api/api.js', () => {
 });
 
 // to stop the server after the tests should have finished running
-const stopServer = setTimeout(() => {
+setTimeout(() => {
   server.close();
 }, 2000)
